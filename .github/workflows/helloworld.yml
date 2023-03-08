@@ -1,0 +1,32 @@
+name: Hello World
+
+on:
+  workflow_dispatch
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x, 18.x]
+
+    steps:
+    - run: echo "Hello World!"
+    - name: Checkout source
+      uses: actions/checkout@v3
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - name: OS info
+      run: uname -a
+    - name: Node.js info
+      run: node -v
+    - name: List files in the repository
+      run: |
+        ls ${{ github.workspace }}
+    - run: uname -a
+    - run: echo "Bye."

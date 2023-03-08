@@ -1,0 +1,36 @@
+name: GitHub Pages Deployment
+
+on:
+  push:
+    branches: main
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js 18.x
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18.x
+        cache: 'yarn'
+    - run: yarn install
+    - run: yarn test -- --coverage
+    - run: yarn lint
+
+  deploy:
+
+    needs: test
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js 18.x
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18.x
+        cache: 'yarn'
+    - run: yarn install
+    - run: yarn deploy
