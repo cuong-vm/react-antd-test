@@ -1,0 +1,28 @@
+name: Daily Verification
+
+on:
+  schedule:
+    - cron:  '30 2 * * 1-6'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - run: echo "Hi daily!"
+    - name: Checkout source
+      uses: actions/checkout@v3
+    - name: Use Node.js 18.x
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18.x
+    - name: OS info
+      run: uname -a
+    - name: Node.js info
+      run: node -v
+    - name: List files in the repository
+      run: |
+        ls ${{ github.workspace }}
+    - run: uname -a
+    - run: echo "Bye."
