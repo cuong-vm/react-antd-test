@@ -2,7 +2,7 @@ name: Daily Verification
 
 on:
   schedule:
-    - cron:  '30 2 * * 1-6'
+    - cron:  '00 10 * * 1-6'
 
 jobs:
   build:
